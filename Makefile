@@ -15,4 +15,4 @@ test:
 
 install: go mod tidy
 
-.PHONY: gen clean run
+.PHONY: gen clean server client test install
