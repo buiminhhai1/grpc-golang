@@ -23,3 +23,8 @@
 * Implement Bidirectional Streaming API with rating features that allows client to rate multiple laptops, each with a score between 1 to 10, and get back the average rating score for each of them.
 * The input of the API is a stream of requests, each with a laptop ID and a score.
 * The API will returns a stream of responses, each contains a laptopID, the number of times that laptop was rated, and the average rated score.
+
+5. Implement Load Balancer Server side with NGiNX -> need install nginx ```brew install nginx``` and then pass the config to ```nginx.conf``` file on the folder ```/usr/local/etc/nginx/```
+
+* To check list upstream from nginx run command: ```ps aux | grep nginx```
+* To start nginx load balancer run command: ```nginx```
