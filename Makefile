@@ -15,4 +15,7 @@ test:
 
 install: go mod tidy
 
-.PHONY: gen clean server client test install
+cert:
+	cd cert; bash ./gen.sh; cd ..
+
+.PHONY: gen clean server client test install cert
