@@ -1,8 +1,17 @@
 gen:
 	protoc --proto_path=proto --go_out=plugins=grpc:pb --go_opt=paths=source_relative proto/*.proto
 
+gen-gateway:
+	protoc -I ./proto \
+  --go_out=plugins=grpc:pb --go_opt paths=source_relative \
+  --grpc-gateway_out ./pb --grpc-gateway_opt paths=source_relative \
+	--openapiv2_out swagger \
+	--openapiv2_opt logtostderr=true \
+	--openapiv2_opt use_go_templates=true \
+  ./proto/*.proto
+
 clean:
-	rm pb/*.go
+	rm -rf pb/*.go pb/google
 
 server1:
 	go run cmd/server/main.go -port 50051
@@ -18,6 +27,9 @@ server2-tls:
 
 server:
 	go run cmd/server/main.go -port 8080
+
+rest:
+	go run cmd/server/main.go -port 8081 -type rest -endpoint 0.0.0.0:8080
 
 client:
 	go run cmd/client/main.go -address 0.0.0.0:8080
