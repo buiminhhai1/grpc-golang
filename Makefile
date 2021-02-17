@@ -28,8 +28,14 @@ server2-tls:
 server:
 	go run cmd/server/main.go -port 8080
 
+server-tls:
+	go run cmd/server/main.go -port 8080 -tls
+
 rest:
 	go run cmd/server/main.go -port 8081 -type rest -endpoint 0.0.0.0:8080
+
+rest-tls:
+	go run cmd/server/main.go -port 8081 -tls -type rest -endpoint 0.0.0.0:8080
 
 client:
 	go run cmd/client/main.go -address 0.0.0.0:8080

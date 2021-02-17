@@ -125,7 +125,18 @@ func runRESTServer(
 	grpcEndpoint string,
 ) error {
 	mux := runtime.NewServeMux()
-	dialOptions := []grpc.DialOption{grpc.WithInsecure()}
+
+	transportOption := grpc.WithInsecure()
+
+	if enableTLS {
+		tlsCredentials, err := loadTLSCrendentials()
+		if err != nil {
+			return fmt.Errorf("cannot load TLS credentials: %w", err)
+		}
+		transportOption = grpc.WithTransportCredentials(tlsCredentials)
+	}
+
+	dialOptions := []grpc.DialOption{transportOption}
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
